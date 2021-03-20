@@ -19,11 +19,12 @@ const Slide = () => {
 
     return (
         <div className='game-wrapper'>
-            <GameImage />
-            <button onClick={toggleStart}>Start</button>
-        { start &&
-            <GameBoard setMoves={setMoves} start={start} setGameOver={setGameOver}/>    
+        {(start) ? 
+            <GameBoard setMoves={setMoves} start={start} setGameOver={setGameOver}/> 
+            : 
+            <GameImage toggleStart={toggleStart}/>
         }
+       
         { gameOver &&
             <GameOver />
         }

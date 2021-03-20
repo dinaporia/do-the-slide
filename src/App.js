@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-
+import './App.scss';
 import Landing from './components/Landing';
 import AboveTheFold from './components/AboveTheFold';
 import Slide from './components/Slide';

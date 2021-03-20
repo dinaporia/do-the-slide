@@ -1,11 +1,11 @@
 import React from 'react';
 
-const GameImage = (props) => {
+const GameImage = ({toggleStart}) => {
 // 
 
     return (
-        <div className='main-image'>
-           
+        <div className='game-image'>
+            <button onClick={toggleStart}>Start</button>
         </div>
     );
 }
