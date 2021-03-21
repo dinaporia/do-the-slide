@@ -1,15 +1,17 @@
 import React from 'react';
 
-const GamePiece = ({tile}) => {
-const {initialCol, initialRow, currentCol, currentRow, hidden} = tile;
-const tileLength = 90;  // offset per cell
+const GamePiece = ({tile, moveTile}) => {
+    const {id, row, col, hidden } = tile;
 
-//  tile position determined via position props
-let currentTop = (currentCol -1)*tileLength;
-let currentLeft = (currentRow -1)*tileLength;
+    const tileLength = 90;  // offset per row/col
+
+    const css = {top: row * tileLength + 'px', left: col * tileLength + 'px'};
 
     return (
-        <div className={`tile ${(hidden) ? 'hidden' : ''}`}>
+        <div className={`tile ${(hidden) ? 'hidden' : ''} `} 
+            style={css}
+            onClick={() => moveTile(id)}
+        >
 
         </div>
     );

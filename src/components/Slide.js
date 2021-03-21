@@ -13,14 +13,24 @@ const Slide = () => {
         setStart(true);
     }
 
+    const handleMove = () => {
+        setMoves(moves => moves + 1);
+    }
+
     if (gameOver) {
         setStart(false);
+        console.log('game over');
     }
 
     return (
         <div className='game-wrapper'>
         {(start) ? 
-            <GameBoard setMoves={setMoves} start={start} setGameOver={setGameOver}/> 
+            <GameBoard 
+                boardWidth={6} boardHeight={4} 
+                start={start} 
+                setGameOver={setGameOver}
+                handleMove={handleMove}
+            /> 
             : 
             <GameImage toggleStart={toggleStart}/>
         }
