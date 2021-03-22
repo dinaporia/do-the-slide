@@ -2,14 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import './App.scss';
 import Landing from './components/Landing';
-import AboveTheFold from './components/AboveTheFold';
+import Header from './components/Header';
 import Slide from './components/Slide';
 
 const App = () => {
 	return (
 		<Router>
 			<div className="App">
-				<AboveTheFold />
+				<Header />
 				<Switch>
 					<Route path='/home'>
 						<Landing />

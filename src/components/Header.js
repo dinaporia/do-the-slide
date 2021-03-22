@@ -1,17 +1,17 @@
 import React from 'react';
 import { withRouter, NavLink, useLocation } from 'react-router-dom';
 
-const AboveTheFold = () => {
+const Header = () => {
     const location = useLocation();
     let linkPath = '/slide';
-    let linkText = 'Go to game';
+    let linkText = 'Play Game';
     if (location.pathname.toLowerCase() === '/slide') {
         linkPath = '/home';
         linkText = 'Home';
     }
 
     return (
-        <div className="ATF">
+        <div className="header">
             <header className="app-title">
             Do the Slide
             </header>
@@ -20,4 +20,4 @@ const AboveTheFold = () => {
     );
 }   
 
-export default withRouter(AboveTheFold);
+export default withRouter(Header);

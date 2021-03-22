@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { GamePiece } from './';
 
-
-
 class GameBoard extends Component {
     constructor(props) {
         super(props);
@@ -66,12 +64,6 @@ class GameBoard extends Component {
 // otherwise, swap first two tiles to make it solvable
 
 // So for an even-width puzzle, we must sum the inversions plus the distance between the empty row and the bottom row.
-
- 
-
-
-
-
 
 
 
@@ -177,7 +169,8 @@ class GameBoard extends Component {
                     key={tile.id} 
                     moveTile={this.moveTile} 
                     size = {{width: this.props.boardWidth, height: this.props.boardHeight}}
-                    imgUrl='/images/bubbleSquare.jpg'
+                    imgUrl={this.props.imgUrl}
+                    tileLength={this.props.tileLength}
 
                 />
                 )) 

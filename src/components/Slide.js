@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { GameBoard, GameImage, GameOver, Stats } from './Game/';
 
@@ -7,8 +7,26 @@ const Slide = () => {
     const [ start, setStart ] = useState(false);
     const [ gameOver, setGameOver ] = useState(false);
     const [ timer, setTimer ] = useState(0);
+    const [ imgUrl, setImage ] = useState(false);
 
-    const imgUrl = '/images/bubbleSquare.jpg'
+    // select image randomly from array
+    const images = ['/images/bubbleSquare.jpg', '/images/bubble.jpg', '/images/memento.jpg'];
+    // const imgUrl = '/images/bubbleSquare.jpg';
+
+    useEffect(() => {
+       pickImage();
+    }, [])
+
+    const pickImage = () => {
+        let x = Math.floor(Math.random() * (images.length - 1));
+        setImage(images[x]);
+    }
+    // grid size
+    const gridWidth = 3;
+    const gridHeight = 3;
+    const tileLength = 400/gridWidth;
+
+
     
     const toggleStart = () => {
         setMoves(0);
@@ -18,6 +36,7 @@ const Slide = () => {
 
     const toggleGameOver = () => {
         setGameOver(false);
+        pickImage();
     }
 
     const moveCounter = () => {
@@ -46,11 +65,13 @@ const Slide = () => {
             />
             : (start) ?
                 <GameBoard 
-                    boardWidth={4} boardHeight={4} 
+                    boardWidth={gridWidth} boardHeight={gridHeight} 
                     start={start} 
                     gameOver={handleGameOver}
                     moveCounter={moveCounter}
                     imgUrl={imgUrl}
+                    tileLength={tileLength}
+                    pickImage={pickImage}
                 /> 
                 :  <GameImage 
                         toggleStart={toggleStart} 
