@@ -8,7 +8,7 @@ class GameBoard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            orderedTiles: [],
+            correctTiles: [],  
             shuffledTiles: []
         };
     }
@@ -17,116 +17,118 @@ class GameBoard extends Component {
         this.createTiles();
     }
 
+    orderedTiles = [];
+
     createTiles = () => {
-        const {boardWidth, boardHeight } = this.props;
-        const tiles = []; 
+        const { boardWidth, boardHeight } = this.props;
         let tileIndex = 0;
-        // each tile stores its correct location in array and col/row
+        // each tile stores its correct location in array (via index/id) and col/row
         for (let row = 0; row < boardHeight; row++) {
             for (let col = 0; col < boardWidth; col++) {
                 const piece = { id: tileIndex, col: col, row: row }
-                tiles.push(piece);
+                this.orderedTiles.push(piece);
                 tileIndex++;
             }
         }
        
-        // shuffle tiles into new array
-       // const shuffledTiles = tiles.slice().sort(() => Math.random() - 0.5);
-       const shuffledTiles = tiles.slice();
-       const spare = shuffledTiles[23];
-       shuffledTiles[23] = shuffledTiles[22];
-       shuffledTiles[22] = spare;
+        // create shallow copy of cloned objects to shuffle
+        const shuffledTiles = this.orderedTiles.map(oTile => {
+            return {...oTile}
+        });
+        
+       shuffledTiles.sort(() => Math.random() - 0.5);   // TODO: CHECK IF PUZZLE IS SOLVABLE
+
+        // const spare = shuffledTiles[22];
+        // shuffledTiles[22] = shuffledTiles[23];
+        // shuffledTiles[23] = spare;
        
-       
-        shuffledTiles.forEach((item, index) => {
+        shuffledTiles.forEach((sTile, index) => {
             // get current position based on index in new array
-            item.col = index % boardWidth;
-            item.row = Math.floor(index/boardWidth);
-
-            // corner tile will be hidden
-            item.hidden = ((item.row === (boardHeight - 1)) && (item.col === (boardWidth - 1))) ? true : false;
-
+            sTile.col = index % boardWidth;
+            sTile.row = Math.floor(index/boardWidth);
+            // hide corner tile
+            sTile.hidden = ((sTile.row === (boardHeight - 1)) && (sTile.col === (boardWidth - 1))) ? true : false;
             // store index for easier reference
-            item.shuffledIndex = index;
+            sTile.shuffledIndex = index;
         }); 
 
+        // mark whether tiles are in correct position
+        // hidden tile always reads true
+        const correctArray = this.orderedTiles.map(oTile => {
+            const currentTile = shuffledTiles.filter(sTile => sTile.id === oTile.id)[0];
+            return (currentTile.hidden || (currentTile.row === oTile.row && currentTile.col === oTile.col)) ? true : false;
+        })
+
         // store both correct and new location in state
-        this.setState({orderedTiles: tiles, shuffledTiles: shuffledTiles });
+        this.setState({ correctTiles: correctArray, shuffledTiles: shuffledTiles });
     }
 
     moveTile = (id) => {
-        // retrieve tile by id
-        const tile = this.state.shuffledTiles.filter(item => item.id === id)[0];
-        console.log('tile ' + JSON.stringify(tile));
+        // retrieve clone of tile by id
+        const currentTile = {...this.state.shuffledTiles.filter(item => item.id === id)[0]};
+        console.log('tile ' + JSON.stringify(currentTile));
         // do nothing if hidden
-        if (tile.hidden) return;
+        if (currentTile.hidden) return;
 
-        // check if tile is adjacent to hidden tile
-        const hiddenTile = this.state.shuffledTiles.filter(item => item.hidden)[0];
-
+        // check if tile is adjacent to hidden aka movable
+        const hiddenTile = {...this.state.shuffledTiles.filter(item => item.hidden)[0]};
         let movable = false;
-        if (hiddenTile.row === tile.row) {
-            if (hiddenTile.col - tile.col === 1) {
+
+        if (hiddenTile.row === currentTile.row) {
+            if (hiddenTile.col - currentTile.col === 1) {
                 movable = 'right';
-            } else if (hiddenTile.col - tile.col === -1) {
+            } else if (hiddenTile.col - currentTile.col === -1) {
                 movable = 'left';
             }
-        } else if (hiddenTile.col === tile.col) {
-            if (hiddenTile.row - tile.row === 1) {
+        } else if (hiddenTile.col === currentTile.col) {
+            if (hiddenTile.row - currentTile.row === 1) {
                 movable = 'down';
-            } else if (hiddenTile.row - tile.row === -1){
+            } else if (hiddenTile.row - currentTile.row === -1){
                 movable = 'up';
             }
         }
         
-        console.log('movable ' + movable);
         // set new position according to move direction
         switch (movable) {
             case 'left': 
-                tile.col -= 1;
+                currentTile.col -= 1;
                 hiddenTile.col += 1;
             break;
             case 'right':
-                tile.col += 1;
+                currentTile.col += 1;
                 hiddenTile.col -= 1;
             break;
             case 'up':
-                tile.row -= 1;
+                currentTile.row -= 1;
                 hiddenTile.row += 1;
             break;
             case 'down':
-                tile.row += 1;
+                currentTile.row += 1;
                 hiddenTile.row -= 1;
             break;
             default:
-                // if tile is not movable, add shake animation!
+                // TO DO: add shake animation!
                 return;
         }   
-        // store new info for moved tile & hidden tile
+
+        // update location for moved & hidden tiles
         const updatedTiles = this.state.shuffledTiles.slice();
-        updatedTiles[tile.shuffledIndex] = tile;
+        updatedTiles[currentTile.shuffledIndex] = currentTile;
         updatedTiles[hiddenTile.shuffledIndex] = hiddenTile;
   
         this.setState({shuffledTiles: updatedTiles })
-        this.props.handleMove();
+        this.props.moveCounter(); 
 
-        // // check if puzzle is solved
-        // let correctPlacement = [];
-        // this.state.orderedTiles.forEach(orderedTile => {
-        //     const shuffledTile = updatedTiles.filter(shuffled => orderedTile.id === shuffled.id)[0];
-        //     if ((shuffledTile.col === orderedTile.col) && (shuffledTile.row === orderedTile.row)) {
-        //         correctPlacement.push(true);
-        //     } else {
-        //         correctPlacement.push(false);
-        //     }
-            
-        // });
+        // mark if piece is in correct position
+        const oTile = this.orderedTiles.filter(oTile => currentTile.id === oTile.id)[0];
+        const correctArray = this.state.correctTiles.slice();
+        correctArray[currentTile.id] = (currentTile.row === oTile.row && currentTile.col === oTile.col) ? true : false;
         
-        // if (!correctPlacement.includes(false)) {
-        //     console.log('correct ' + correctPlacement); 
-        //     this.props.setGameOver();
-        // }
+        this.setState({correctTiles: correctArray});
 
+        if (!correctArray.includes(false)) {
+            this.props.gameOver();
+        }
 
     }
 
@@ -141,6 +143,9 @@ class GameBoard extends Component {
                     tile={tile} 
                     key={tile.id} 
                     moveTile={this.moveTile} 
+                    size = {{width: this.props.boardWidth, height: this.props.boardHeight}}
+                    imgUrl='/images/memento.jpg'
+
                 />
                 )) 
             }

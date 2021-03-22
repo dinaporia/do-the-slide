@@ -13,12 +13,12 @@ const Slide = () => {
         setStart(true);
     }
 
-    const handleMove = () => {
+    const moveCounter = () => {
         setMoves(moves => moves + 1);
     }
-
-    if (gameOver) {
+    const handleGameOver = () => {
         setStart(false);
+        setGameOver(true);
         console.log('game over');
     }
 
@@ -28,8 +28,8 @@ const Slide = () => {
             <GameBoard 
                 boardWidth={6} boardHeight={4} 
                 start={start} 
-                setGameOver={setGameOver}
-                handleMove={handleMove}
+                gameOver={handleGameOver}
+                moveCounter={moveCounter}
             /> 
             : 
             <GameImage toggleStart={toggleStart}/>
