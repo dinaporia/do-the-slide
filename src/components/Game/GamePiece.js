@@ -3,7 +3,7 @@ import React from 'react';
 const GamePiece = ({tile, moveTile, size, imgUrl}) => {
 
     const {id, row, col, hidden } = tile;
-    const tileLength = 90;  // offset per row/col
+    const tileLength = 100;  // offset per row/col
 
     const correctCol = id % size.width;
     const correctRow = Math.floor(id/size.width);

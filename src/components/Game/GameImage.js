@@ -1,11 +1,11 @@
 import React from 'react';
 
-const GameImage = ({toggleStart}) => {
+const GameImage = ({toggleStart, imgUrl}) => {
 // 
 
     return (
-        <div className='game-image'>
-            <button onClick={toggleStart}>Start</button>
+        <div className='game-image' style={{backgroundImage: `url(${imgUrl})`}}>
+            <button onClick={toggleStart}>PLAY</button>
         </div>
     );
 }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { GameImage, GamePiece } from './';
+import { GamePiece } from './';
 
-// 540 x 360 image
-// 90x 90 tiles
+
 
 class GameBoard extends Component {
     constructor(props) {
@@ -28,6 +27,8 @@ class GameBoard extends Component {
                 const piece = { id: tileIndex, col: col, row: row }
                 this.orderedTiles.push(piece);
                 tileIndex++;
+                 // hide corner tile
+                piece.hidden = ((piece.row === (boardHeight - 1)) && (piece.col === (boardWidth - 1))) ? true : false;
             }
         }
        
@@ -37,17 +38,49 @@ class GameBoard extends Component {
         });
         
        shuffledTiles.sort(() => Math.random() - 0.5);   // TODO: CHECK IF PUZZLE IS SOLVABLE
+        // first use fisher yates algorithm to randomize
+        // for (i = tiles.length -1; i>0; i--) {
+        //     j = Math.floor(Math.random() *i);
+        //     k = tiles[i]
+        //     tiles[i] = tiles[j];
+        //     tiles[j] = k;
+        //     }
+        // next check if it's solvable
+        // 
+            // function isSolvable(width, height, emptyRow) {
+            //     if (width % 2 == 1) {
+            //     return (sumInversions() % 2 == 0)
+            //     } else {
+            //     return ((sumInversions() + height - emptyRow) % 2 == 0)
+            //     }
+            // }
+        // count  tile inversion:
+            // tiles.forEach( tile => {
+            //     for (i=tile.shuffledIndex+1; i < tiles.length-1; i++) {
+            //         if (tiles[i].id < tile.id) inversion++;
+            //         }
+            //     })
 
-        // const spare = shuffledTiles[22];
-        // shuffledTiles[22] = shuffledTiles[23];
-        // shuffledTiles[23] = spare;
+           
+// if tile 1 or 0 is hidden, swap last two
+// otherwise, swap first two tiles to make it solvable
+
+// So for an even-width puzzle, we must sum the inversions plus the distance between the empty row and the bottom row.
+
+ 
+
+
+
+
+
+
+
        
         shuffledTiles.forEach((sTile, index) => {
             // get current position based on index in new array
             sTile.col = index % boardWidth;
             sTile.row = Math.floor(index/boardWidth);
-            // hide corner tile
-            sTile.hidden = ((sTile.row === (boardHeight - 1)) && (sTile.col === (boardWidth - 1))) ? true : false;
+           
             // store index for easier reference
             sTile.shuffledIndex = index;
         }); 
@@ -144,7 +177,7 @@ class GameBoard extends Component {
                     key={tile.id} 
                     moveTile={this.moveTile} 
                     size = {{width: this.props.boardWidth, height: this.props.boardHeight}}
-                    imgUrl='/images/memento.jpg'
+                    imgUrl='/images/bubbleSquare.jpg'
 
                 />
                 )) 
