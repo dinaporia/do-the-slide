@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { GameBoard, GameImage, GameOver, Stats } from './Game/';
 
@@ -10,15 +10,13 @@ const Slide = () => {
     const [ imgUrl, setImage ] = useState(false);
     const [ grid, setGrid ] = useState(4);
 
-    // select image randomly from array
     const images = ['/images/bubbleSquare.jpg', '/images/bird.jpg', '/images/eggs.jpg', '/images/fruit.jpg', '/images/pastel.jpg', '/images/pigeons.jpg', '/images/rose.jpg'];
-    // const imgUrl = '/images/bubbleSquare.jpg';
-
+ 
+    // select image randomly from array
     const pickImage = () => {
         let x = Math.floor(Math.random() * (images.length - 1));
         setImage(images[x]);
     }
-
     if (!imgUrl) {
         pickImage();
     }
@@ -28,6 +26,8 @@ const Slide = () => {
     const gridWidth = grid;
     const tileLength = 400/grid;
 
+    // receives grid input from GameImage
+    // resets moves, starts game
     const toggleStart = (grid) => {
         setGrid(grid);
         setMoves(0);
@@ -35,28 +35,32 @@ const Slide = () => {
         setStart(true);
     }
 
+    // triggered by play again btn on GameOver screen
+    // selects new image
     const toggleGameOver = () => {
         setGameOver(false);
         pickImage();
     }
 
+    // passed to GameBoard
     const moveCounter = () => {
         setMoves(moves => moves + 1);
     }
 
+    // triggered when tiles are arranged correctly
+    // stops counter, triggers game over screen
     const handleGameOver = () => {
         setStart(false);
         setGameOver(true);
-        console.log('game over');
     }
-
+    // stores time from timer at game over
     const getTime = (time) => {
        setTimer(time);
     }
 
+    // toggle screens based on state
     return (
         <div className='game-wrapper'>
-
         {(gameOver) ? 
             <GameOver 
                 toggleGameOver={toggleGameOver} 
@@ -66,7 +70,8 @@ const Slide = () => {
             />
             : (start) ?
                 <GameBoard 
-                    boardWidth={gridWidth} boardHeight={gridHeight} 
+                    boardWidth={gridWidth} 
+                    boardHeight={gridHeight} 
                     start={start} 
                     gameOver={handleGameOver}
                     moveCounter={moveCounter}
@@ -78,10 +83,13 @@ const Slide = () => {
                         toggleStart={toggleStart} 
                         imgUrl={imgUrl}
                     />
-        
         }
         {(start || gameOver) &&
-        <Stats moves={moves} start={start} getTime={getTime} />
+            <Stats 
+                moves={moves} 
+                start={start} 
+                getTime={getTime} 
+            />
         }
         </div>
     );
