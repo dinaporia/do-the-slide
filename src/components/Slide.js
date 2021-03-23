@@ -8,27 +8,28 @@ const Slide = () => {
     const [ gameOver, setGameOver ] = useState(false);
     const [ timer, setTimer ] = useState(0);
     const [ imgUrl, setImage ] = useState(false);
+    const [ grid, setGrid ] = useState(4);
 
     // select image randomly from array
-    const images = ['/images/bubbleSquare.jpg', '/images/bubble.jpg', '/images/memento.jpg'];
+    const images = ['/images/bubbleSquare.jpg', '/images/bird.jpg', '/images/eggs.jpg', '/images/fruit.jpg', '/images/pastel.jpg', '/images/pigeons.jpg', '/images/rose.jpg'];
     // const imgUrl = '/images/bubbleSquare.jpg';
-
-    useEffect(() => {
-       pickImage();
-    }, [])
 
     const pickImage = () => {
         let x = Math.floor(Math.random() * (images.length - 1));
         setImage(images[x]);
     }
+
+    if (!imgUrl) {
+        pickImage();
+    }
+
     // grid size
-    const gridWidth = 3;
-    const gridHeight = 3;
-    const tileLength = 400/gridWidth;
+    const gridHeight = grid;
+    const gridWidth = grid;
+    const tileLength = 400/grid;
 
-
-    
-    const toggleStart = () => {
+    const toggleStart = (grid) => {
+        setGrid(grid);
         setMoves(0);
         setGameOver(false);
         setStart(true);

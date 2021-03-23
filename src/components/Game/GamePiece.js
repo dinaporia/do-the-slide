@@ -20,7 +20,7 @@ const GamePiece = ({tile, moveTile, size, imgUrl, tileLength}) => {
     const styleObject = {...tileSize, ...position, ...imgPlacement}
     
     return (
-        <div className={`tile `} 
+        <div className='tile' 
             style={styleObject}
             onClick={() => moveTile(id)}
         >

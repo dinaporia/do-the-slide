@@ -2,14 +2,14 @@
 $dark: #1d384c;
 $light: #d2e0eb;
 $primary: #440e90;
-//$light: #c9edfb;
+$shadow: rgba(29, 56, 76, 0.6);
 $secondary: #ffb2d5;
 $secondary-shade: #cf8dab;
 $brown: #572311;
 
 .header {
   background-color: $primary;
-  height: 20vh;
+  height: 25vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,15 +44,16 @@ $brown: #572311;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
-  padding: 5vh 10vw;
+  padding: 5vh 5vw;
 
 }
 
 .game-wrapper {
   max-width: 500px;
+  margin-bottom: 15px;
   margin-top: 15px;
   background-color: $light;
-  box-shadow: 5px 4px 3px $dark;
+  box-shadow: 5px 4px 3px $shadow;
 }
 
 .explainer {
@@ -84,21 +85,23 @@ $brown: #572311;
 .board {
   width: 400px;
   height: 400px;
-  border: 2px solid $brown;
-  box-shadow: 3px 3px 3px $dark;
+  border: 5px solid $brown;
+  box-shadow: 4px 4px 5px $shadow;
   padding: 1px;
   position: relative;
   background-color: #d6a769;
+  background-image: url(./assets/images/board.png);
+  background-repeat: none;
 }
 
 .tile {
-  // width: 96px;
-  // height: 96px;
   position: absolute;
   margin: 1px;
   &:not([visibility=hidden]) {
-    border: 1px solid $dark;
-    box-shadow: 2px 2px 2px $dark;
+    border: 1px solid $brown;
+    border-right: 2px solid $brown;
+    border-bottom: 2px solid $brown;
+    box-shadow: 2px 2px 1px $shadow;
   }
 }
 
@@ -107,19 +110,15 @@ $brown: #572311;
   width: 400px;
   height: 400px;
   button {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 100px;
-    height: auto;
+    height: 50px;
     padding: 5px;
     border-radius: 5%;
-    border: 2px solid $primary;
-    background-color: rgba(0, 0, 0, 0.4);
+    border: 2px solid $light;
+    background-color: rgba(0, 0, 0, 0.7);
     color: $light;
     font-size: 1.2em;
+    font-weight: bold;
     &:hover {
       box-shadow: 2px 2px 2px $dark;
       text-shadow: 2px 2px 1px $primary;
@@ -129,11 +128,30 @@ $brown: #572311;
     text-align: center;
     display: block;
     margin: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.47);
     color: $light;
     padding: 1em;
     font-size: 1.2em;
   }
+}
+
+.level-select {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.game-over button {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .stats {
