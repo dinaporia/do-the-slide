@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/dinaporia/do-the-slide/static/css/main.9ee405fe.chunk.css",
-    "main.js": "/dinaporia/do-the-slide/static/js/main.8ed05ac2.chunk.js",
-    "main.js.map": "/dinaporia/do-the-slide/static/js/main.8ed05ac2.chunk.js.map",
-    "runtime-main.js": "/dinaporia/do-the-slide/static/js/runtime-main.955ad860.js",
-    "runtime-main.js.map": "/dinaporia/do-the-slide/static/js/runtime-main.955ad860.js.map",
-    "static/js/2.4720b722.chunk.js": "/dinaporia/do-the-slide/static/js/2.4720b722.chunk.js",
-    "static/js/2.4720b722.chunk.js.map": "/dinaporia/do-the-slide/static/js/2.4720b722.chunk.js.map",
-    "index.html": "/dinaporia/do-the-slide/index.html",
-    "static/css/main.9ee405fe.chunk.css.map": "/dinaporia/do-the-slide/static/css/main.9ee405fe.chunk.css.map",
-    "static/js/2.4720b722.chunk.js.LICENSE.txt": "/dinaporia/do-the-slide/static/js/2.4720b722.chunk.js.LICENSE.txt",
-    "static/media/App.scss": "/dinaporia/do-the-slide/static/media/board.5668a8bc.png",
-    "static/media/nopeSound.1d842c55.wav": "/dinaporia/do-the-slide/static/media/nopeSound.1d842c55.wav",
-    "static/media/slideSound2.57fe2d4c.mp3": "/dinaporia/do-the-slide/static/media/slideSound2.57fe2d4c.mp3"
+    "main.css": "/do-the-slide/static/css/main.1a4ff0c8.chunk.css",
+    "main.js": "/do-the-slide/static/js/main.21ae8bf1.chunk.js",
+    "main.js.map": "/do-the-slide/static/js/main.21ae8bf1.chunk.js.map",
+    "runtime-main.js": "/do-the-slide/static/js/runtime-main.f74fed4e.js",
+    "runtime-main.js.map": "/do-the-slide/static/js/runtime-main.f74fed4e.js.map",
+    "static/js/2.4a9bdd18.chunk.js": "/do-the-slide/static/js/2.4a9bdd18.chunk.js",
+    "static/js/2.4a9bdd18.chunk.js.map": "/do-the-slide/static/js/2.4a9bdd18.chunk.js.map",
+    "index.html": "/do-the-slide/index.html",
+    "static/css/main.1a4ff0c8.chunk.css.map": "/do-the-slide/static/css/main.1a4ff0c8.chunk.css.map",
+    "static/js/2.4a9bdd18.chunk.js.LICENSE.txt": "/do-the-slide/static/js/2.4a9bdd18.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/do-the-slide/static/media/board.5668a8bc.png",
+    "static/media/nopeSound.1d842c55.wav": "/do-the-slide/static/media/nopeSound.1d842c55.wav",
+    "static/media/slideSound2.57fe2d4c.mp3": "/do-the-slide/static/media/slideSound2.57fe2d4c.mp3"
   },
   "entrypoints": [
-    "static/js/runtime-main.955ad860.js",
-    "static/js/2.4720b722.chunk.js",
-    "static/css/main.9ee405fe.chunk.css",
-    "static/js/main.8ed05ac2.chunk.js"
+    "static/js/runtime-main.f74fed4e.js",
+    "static/js/2.4a9bdd18.chunk.js",
+    "static/css/main.1a4ff0c8.chunk.css",
+    "static/js/main.21ae8bf1.chunk.js"
   ]
 }
