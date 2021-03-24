@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/do-the-slide/static/css/main.1a4ff0c8.chunk.css",
-    "main.js": "/do-the-slide/static/js/main.d614f18b.chunk.js",
-    "main.js.map": "/do-the-slide/static/js/main.d614f18b.chunk.js.map",
+    "main.css": "/do-the-slide/static/css/main.f042a478.chunk.css",
+    "main.js": "/do-the-slide/static/js/main.bc47344a.chunk.js",
+    "main.js.map": "/do-the-slide/static/js/main.bc47344a.chunk.js.map",
     "runtime-main.js": "/do-the-slide/static/js/runtime-main.f74fed4e.js",
     "runtime-main.js.map": "/do-the-slide/static/js/runtime-main.f74fed4e.js.map",
     "static/js/2.4720b722.chunk.js": "/do-the-slide/static/js/2.4720b722.chunk.js",
     "static/js/2.4720b722.chunk.js.map": "/do-the-slide/static/js/2.4720b722.chunk.js.map",
     "index.html": "/do-the-slide/index.html",
-    "static/css/main.1a4ff0c8.chunk.css.map": "/do-the-slide/static/css/main.1a4ff0c8.chunk.css.map",
+    "static/css/main.f042a478.chunk.css.map": "/do-the-slide/static/css/main.f042a478.chunk.css.map",
     "static/js/2.4720b722.chunk.js.LICENSE.txt": "/do-the-slide/static/js/2.4720b722.chunk.js.LICENSE.txt",
     "static/media/App.scss": "/do-the-slide/static/media/board.5668a8bc.png",
     "static/media/nopeSound.1d842c55.wav": "/do-the-slide/static/media/nopeSound.1d842c55.wav",
@@ -17,7 +17,7 @@
   "entrypoints": [
     "static/js/runtime-main.f74fed4e.js",
     "static/js/2.4720b722.chunk.js",
-    "static/css/main.1a4ff0c8.chunk.css",
-    "static/js/main.d614f18b.chunk.js"
+    "static/css/main.f042a478.chunk.css",
+    "static/js/main.bc47344a.chunk.js"
   ]
 }
