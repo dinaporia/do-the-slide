@@ -10,7 +10,7 @@ const Slide = () => {
     const [ imgUrl, setImage ] = useState(false);
     const [ grid, setGrid ] = useState(4);
 
-    const images = ['/images/bubbleSquare.jpg', '/images/bird.jpg', '/images/eggs.jpg', '/images/fruit.jpg', '/images/pastel.jpg', '/images/pigeons.jpg', '/images/rose.jpg'];
+    const images = ['./images/bubbleSquare.jpg', './images/bird.jpg', './images/eggs.jpg', './images/fruit.jpg', './images/pastel.jpg', './images/pigeons.jpg', './images/rose.jpg'];
  
     // select image randomly from array
     const pickImage = () => {
