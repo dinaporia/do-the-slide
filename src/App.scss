@@ -60,28 +60,34 @@ $brown: #572311;
 .explainer {
   width: 100%;
   p {
-    max-width: 540px;
-    padding-top: 50px;
+    // max-width: 540px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     font-size: 1.2
   }
-    p::first-line{
-      font-size: 1.5em;
-    } 
-  }
+  p::first-line{
+    font-size: 1.5em;
+  } 
+ 
+}
 
-.screenshot {
+.center {
+  display: block;
   margin: auto;
 }
 
 .left {
   margin-right: auto;
   text-align: left;
+  max-width: 75%;
 }
 
 .right {
   margin-left: auto;
   text-align: right;
+  max-width: 75%;
 }
+
 
 .overlay-image {
   position: absolute;

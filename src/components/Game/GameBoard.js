@@ -98,7 +98,6 @@ class GameBoard extends Component {
         // check if hidden tile is in even row, pass to check solvability
         const hiddenRow = shuffledTiles.filter(tile => tile.hidden)[0].row;
         if (!this.isSolvable(boardWidth, shuffledTiles, hiddenRow)) {
-            console.log("running not solvable")
             // if not solvable, swap two tiles, avoid hidden
             if (hiddenRow === 0 || hiddenRow === 1) {
                 const last = shuffledTiles.length -1;

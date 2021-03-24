@@ -14,9 +14,15 @@ const Slide = () => {
  
     // select image randomly from array
     const pickImage = () => {
-        let x = Math.floor(Math.random() * (images.length - 1));
-        setImage(images[x]);
+        for (let i = images.length -1; i > 0; i--) {
+            const j = Math.floor(Math.random() * i);
+            const k = images[i];
+            images[i] = images[j];
+            images[j] = k;
+        }
+        setImage(images[0]);
     }
+    
     if (!imgUrl) {
         pickImage();
     }
