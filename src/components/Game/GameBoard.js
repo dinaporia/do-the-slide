@@ -136,8 +136,9 @@ class GameBoard extends Component {
         // use clones of state objects to prevent accidentally mutating state
         const currentTile = {...this.state.shuffledTiles.filter(item => item.id === id)[0]};
         // hidden tile cannot be interacted with
-        if (currentTile.hidden) return;
-
+        if (currentTile.hidden) return;     
+        currentTile.shake = false;  
+        
         // check if tile is adjacent to hidden aka movable
         const hiddenTile = {...this.state.shuffledTiles.filter(item => item.hidden)[0]};
         let movable = false;
@@ -161,22 +162,25 @@ class GameBoard extends Component {
             case 'left': 
                 currentTile.col -= 1;
                 hiddenTile.col += 1;
+                currentTile.shake = false;
             break;
             case 'right':
                 currentTile.col += 1;
                 hiddenTile.col -= 1;
+                currentTile.shake = false;
             break;
             case 'up':
                 currentTile.row -= 1;
                 hiddenTile.row += 1;
+                currentTile.shake = false;
             break;
             case 'down':
                 currentTile.row += 1;
                 hiddenTile.row -= 1;
+                currentTile.shake = false;
             break;
             default:
-                // TO DO: add shake animation!
-                return;
+                currentTile.shake = true;
         }   
 
         // update location for moved & hidden tiles
@@ -204,6 +208,13 @@ class GameBoard extends Component {
         }
     }
 
+    // give tiles access to turn off their shake 
+    stopShake = (shuffledIndex) => {
+        const shuffledCopy = this.state.shuffledTiles.slice();
+        shuffledCopy[shuffledIndex].shake = false;
+        this.setState({shuffledTiles: shuffledCopy});
+    }
+
     render () {
         return (
             <div className='board' >
@@ -215,6 +226,7 @@ class GameBoard extends Component {
                     size = {{width: this.props.boardWidth, height: this.props.boardHeight}}
                     imgUrl={this.props.imgUrl}
                     tileLength={this.props.tileLength}
+                    stopShake={this.stopShake}
                 />
                 )) 
             }

@@ -14,11 +14,13 @@ const GameOver = ({toggleGameOver, imgUrl, moves, timer}) => {
 
     return (
         <div className='game-over' style={{backgroundImage: `url(${imgUrl})`}}>
-            <p>
-            You did it! And it only took you {moves} moves and {time}.
+            <h3>
+            You did it!
+            </h3><p>
+            And it only took you {moves} moves and {time}.
             </p>
           
-           <button onClick={toggleGameOver}>PLAY AGAIN'</button>
+           <button onClick={toggleGameOver}>PLAY AGAIN</button>
         </div>
     );
 }
