@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { GamePiece } from './';
+import nopeSound from '../../assets/sounds/nopeSound.wav';
+import slideSound from '../../assets/sounds/slideSound2.mp3';
+
+
 
 class GameBoard extends Component {
     constructor(props) {
         super(props);
         this.state = {
             correctTiles: [],  
-            shuffledTiles: []
+            shuffledTiles: [],
+            gameIsOver: false
         };
     }
 
@@ -16,6 +21,10 @@ class GameBoard extends Component {
 
     // store ordered tiles as props bc they don't change after creation
     orderedTiles = [];
+
+    // to do: fix overlapping audio issue
+    nopeAudio = new Audio(nopeSound);
+    slideAudio = new Audio(slideSound);
 
     // shuffle tiles using Fisher-Yates algorithm
     shuffleTiles = (tiles) => {
@@ -31,21 +40,23 @@ class GameBoard extends Component {
     isSolvable = (width, tiles, hiddenRow) => {
         let inversions = 0;
         // check for 0 bc it isn't even or odd
-        const rowIsEven = (hiddenRow === 0 || hiddenRow % 2 === 0) 
-            ? true : false;
-        
         tiles.forEach( tile => {
+        // don't count hidden tile
+            if (tile.hidden) return;
         // each tile that belongs before this one but comes after it is an inversion
-            for (let i = (tile.shuffledIndex + 1); i < tiles.length -1; i++) {
-                if (tiles[i].id < tile.id) inversions++;
+            for (let i = (tile.shuffledIndex + 1); i < tiles.length; i++) {
+                if (!tiles[i].hidden && (tiles[i].id < tile.id)) {
+                    inversions++;
+                }
             }
         });
-        console.log('inversions ' + inversions);
 
         // if grid is odd, inversions must be even
         if (width % 2 === 1) {
             return (inversions % 2 === 0);
         } else {
+            const rowIsEven = (hiddenRow === 0 || hiddenRow % 2 === 0) 
+            ? true : false;
             // if hidden row is even, inversions must be odd
             if (rowIsEven) {
                 return (inversions % 2 === 1)
@@ -84,37 +95,21 @@ class GameBoard extends Component {
             sTile.shuffledIndex = index; // store for easier reference
         }); 
 
-    // CHECK IF PUZZLE IS SOLVABLE
-        // check if hidden tile is in even row
+        // check if hidden tile is in even row, pass to check solvability
         const hiddenRow = shuffledTiles.filter(tile => tile.hidden)[0].row;
-
         if (!this.isSolvable(boardWidth, shuffledTiles, hiddenRow)) {
             console.log("running not solvable")
-            // if not solvable, swap two tiles
-            if (hiddenRow === 0) {
-                // if hidden tile is in top row, swap last two tiles
-                let i = shuffledTiles.length - 1;
-                let j = i - 1;
-                const spare = shuffledTiles[i];
-                shuffledTiles[i] = shuffledTiles[j]
-                shuffledTiles[j] = spare;
-                // update indices
-                shuffledTiles[j].shuffledIndex = j;
-                shuffledTiles[i].shuffledIndex = i;
-                // update position
-                shuffledTiles[j].col = shuffledTiles[j].col + 1;
-                shuffledTiles[i].col = shuffledTiles[j].col - 1;
+            // if not solvable, swap two tiles, avoid hidden
+            if (hiddenRow === 0 || hiddenRow === 1) {
+                const last = shuffledTiles.length -1;
+                const spare = shuffledTiles[last].id;
+                shuffledTiles[last].id = shuffledTiles[last - boardWidth].id
+                shuffledTiles[last - boardWidth].id = spare;
+
             } else {
-                // swap first two tiles
-                const spare = shuffledTiles[0];
-                shuffledTiles[0] = shuffledTiles[1]
-                shuffledTiles[1] = spare;
-
-                shuffledTiles[0].shuffledIndex = 0;
-                shuffledTiles[1].shuffledIndex = 1;
-
-                shuffledTiles[0].col = 0;
-                shuffledTiles[1].col = 1;
+                const spare = shuffledTiles[0].id;
+                shuffledTiles[0].id = shuffledTiles[boardWidth].id
+                shuffledTiles[boardWidth].id = spare;
             }
         }
 
@@ -156,31 +151,28 @@ class GameBoard extends Component {
                 movable = 'up';
             }
         }
-        
+        if (movable) this.slideAudio.play();
         // set new position according to move direction
         switch (movable) {
             case 'left': 
                 currentTile.col -= 1;
                 hiddenTile.col += 1;
-                currentTile.shake = false;
             break;
             case 'right':
                 currentTile.col += 1;
                 hiddenTile.col -= 1;
-                currentTile.shake = false;
             break;
             case 'up':
                 currentTile.row -= 1;
                 hiddenTile.row += 1;
-                currentTile.shake = false;
             break;
             case 'down':
                 currentTile.row += 1;
                 hiddenTile.row -= 1;
-                currentTile.shake = false;
             break;
             default:
                 currentTile.shake = true;
+                this.nopeAudio.play();
         }   
 
         // update location for moved & hidden tiles
@@ -204,8 +196,14 @@ class GameBoard extends Component {
 
         // if all pieces are in correct position, game is won
         if (!correctArray.includes(false)) {
-            this.props.gameOver();
+            this.setState({gameIsOver: true})
+            this.gameOver();
         }
+    }
+
+    gameOver = () => {
+        setTimeout(() => this.props.handleGameOver(), 5000)
+        ;
     }
 
     // give tiles access to turn off their shake 
@@ -218,6 +216,7 @@ class GameBoard extends Component {
     render () {
         return (
             <div className='board' >
+            <img src={this.props.imgUrl} alt='solved!' className='overlay-image' style={(this.state.gameIsOver) ? {visibility: 'visible', opacity: 1, zIndex: 1} : {}} />
             { this.state.shuffledTiles.map(tile => (
                 <GamePiece 
                     tile={tile} 

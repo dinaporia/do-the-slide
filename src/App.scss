@@ -83,6 +83,17 @@ $brown: #572311;
   text-align: right;
 }
 
+.overlay-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 4s;
+}
 
 
 .tile {
@@ -90,10 +101,10 @@ $brown: #572311;
   margin: 1px;
   transition: transform 0.3s ease-in;
   &:not(.hidden) {
-    border: 1px solid $brown;
+    border: 1px solid #dfc2b9;
     border-right: 2px solid $brown;
     border-bottom: 2px solid $brown;
-    box-shadow: 2px 2px 1px $shadow;
+    box-shadow: 2px 2px 2px $shadow;
   }
   div {
     width: 100%;
@@ -103,7 +114,6 @@ $brown: #572311;
     animation: shake 0.7s;
   }
 }
-
 
 @keyframes shake {
   0% { transform:  rotate(0deg); }
@@ -124,18 +134,12 @@ $brown: #572311;
   height: 401px;
   border: 5px solid $brown;
   box-shadow: 4px 4px 5px $shadow;
-  padding: 1px;
   position: relative;
   background-color: #d6a769;
   background-image: url(./assets/images/board.png);
   background-repeat: none;
+  background-size: cover;
 }
-
-// .board, .game-over, .game-image {
-//   position: relative;
-//   width: 400px;
-//   height: 400px;
-// }
 
 .game-image, .game-over {
   button {
@@ -164,7 +168,7 @@ $brown: #572311;
   }
   p {
     padding: 0.7em 1em;
-    font-size: 1em;
+    font-size: 1.1em;
   }
 }
 

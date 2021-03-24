@@ -42,7 +42,7 @@ const GamePiece = ({tile, moveTile, size, imgUrl, tileLength, stopShake}) => {
             <div 
                 className={`inner-tile ${shakeTile}`} 
                 style={imgPlacement}
-            />      
+            >  </div>   
         </div>
     );
 }

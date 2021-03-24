@@ -50,12 +50,13 @@ const Slide = () => {
     // triggered when tiles are arranged correctly
     // stops counter, triggers game over screen
     const handleGameOver = () => {
-        setStart(false);
         setGameOver(true);
+        setStart(false);
+       
     }
     // stores time from timer at game over
     const getTime = (time) => {
-       setTimer(time);
+       setTimer(time - 5);
     }
 
     // toggle screens based on state
@@ -73,7 +74,7 @@ const Slide = () => {
                     boardWidth={gridWidth} 
                     boardHeight={gridHeight} 
                     start={start} 
-                    gameOver={handleGameOver}
+                    handleGameOver={handleGameOver}
                     moveCounter={moveCounter}
                     imgUrl={imgUrl}
                     tileLength={tileLength}

@@ -5,7 +5,6 @@ const Timer = ({start, getTime}) => {
     const [ time, setTime ] = useState(0);
     useEffect(() => {
         if (start) {
-    
             const stopTimer = setInterval(() => setTime(t => t + 1), 1000);
             return () => clearInterval(stopTimer);
          } else {
