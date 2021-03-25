@@ -3,8 +3,6 @@ import { GamePiece } from './';
 import nopeSound from '../../assets/sounds/nopeSound.wav';
 import slideSound from '../../assets/sounds/slideSound2.mp3';
 
-
-
 class GameBoard extends Component {
     constructor(props) {
         super(props);
@@ -27,17 +25,24 @@ class GameBoard extends Component {
     slideAudio = new Audio(slideSound);
 
     // shuffle tiles using Fisher-Yates algorithm
-    shuffleTiles = (tiles) => {
+    shuffleTiles = (tiles, width) => {
         for (let i = tiles.length -1; i > 0; i--) {
             const j = Math.floor(Math.random() * i);
             const k = tiles[i];
             tiles[i] = tiles[j];
             tiles[j] = k;
         }
+        // store new location in each tile
+        tiles.forEach((sTile, index) => {
+            sTile.col = index % width;
+            sTile.row = Math.floor(index/width);
+            sTile.shuffledIndex = index; // store for easier reference
+        }); 
     }
 
     // check to see if puzzle is solvable using inversions
-    isSolvable = (width, tiles, hiddenRow) => {
+    isSolvable = (width, tiles) => {
+        const hiddenRow = tiles.filter(tile => tile.hidden)[0].row;
         let inversions = 0;
         // check for 0 bc it isn't even or odd
         tiles.forEach( tile => {
@@ -86,32 +91,13 @@ class GameBoard extends Component {
             return {...oTile}
         });
         
-        this.shuffleTiles(shuffledTiles);
+        this.shuffleTiles(shuffledTiles, boardWidth);
 
-        // calculate new position based on index
-        shuffledTiles.forEach((sTile, index) => {
-            sTile.col = index % boardWidth;
-            sTile.row = Math.floor(index/boardWidth);
-            sTile.shuffledIndex = index; // store for easier reference
-        }); 
-
-        // check if hidden tile is in even row, pass to check solvability
-        const hiddenRow = shuffledTiles.filter(tile => tile.hidden)[0].row;
-        if (!this.isSolvable(boardWidth, shuffledTiles, hiddenRow)) {
-            // if not solvable, swap two tiles, avoid hidden
-            if (hiddenRow === 0 || hiddenRow === 1) {
-                const last = shuffledTiles.length -1;
-                const spare = shuffledTiles[last].id;
-                shuffledTiles[last].id = shuffledTiles[last - boardWidth].id
-                shuffledTiles[last - boardWidth].id = spare;
-
-            } else {
-                const spare = shuffledTiles[0].id;
-                shuffledTiles[0].id = shuffledTiles[boardWidth].id
-                shuffledTiles[boardWidth].id = spare;
-            }
+        // if puzzle isn't solvable, reshuffle
+        while (!this.isSolvable(boardWidth, shuffledTiles )) {
+            this.shuffleTiles(shuffledTiles, boardWidth);
         }
-
+       
         // note whether tiles are in correct position
         // hidden tile always reads true
         const correctArray = this.orderedTiles.map(oTile => {

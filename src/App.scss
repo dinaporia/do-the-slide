@@ -7,6 +7,8 @@ $secondary: #ffb2d5;
 $secondary-shade: #cf8dab;
 $brown: #572311;
 
+
+
 .header {
   background-color: $primary;
   height: 25vh;
@@ -39,26 +41,19 @@ $brown: #572311;
   }
 }
 
-.home, .game-wrapper {
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: column;
-  padding: 5vh 5vw;
-
-}
-
-.game-wrapper {
-  max-width: 500px;
-  margin-bottom: 15px;
-  margin-top: 15px;
+/* LANDING PAGE  */
+.home {
   background-color: $light;
-  box-shadow: 5px 4px 3px $shadow;
+  padding-top: 0;
+  padding-bottom: 0;
 }
-
 .explainer {
   width: 100%;
+  max-width: 900px;
+  height: 100%;
+  padding: 0 3rem;
+  box-sizing: border-box;
+  background-color: white;
   p {
     // max-width: 540px;
     padding-top: 15px;
@@ -68,7 +63,16 @@ $brown: #572311;
   p::first-line{
     font-size: 1.5em;
   } 
- 
+  a {
+    color: $primary;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+    &:visited {
+      color: $dark;
+    }
+  }
 }
 
 .center {
@@ -86,6 +90,51 @@ $brown: #572311;
   margin-left: auto;
   text-align: right;
   max-width: 75%;
+}
+
+div.right {
+  p {
+    display:inline-block;
+  }
+}
+
+// LOGOS 
+.github {
+  vertical-align: -1rem;
+}
+
+.fa-icon {
+  padding: 15px;
+}
+
+.mintbean {
+  display: inline-block;
+  width: 1em;
+  font-size: 2em;
+  vertical-align: 0.25em;
+  padding-left: 15px;
+}
+
+
+/* SHARED  */
+.home, .game-wrapper {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+
+
+/* GAME PAGE  */
+.game-wrapper {
+  max-width: 500px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  background-color: $light;
+  box-shadow: 5px 4px 3px $shadow;
+  padding: 5vh 5vw;
 }
 
 
@@ -178,6 +227,14 @@ $brown: #572311;
   }
 }
 
+.game-over button {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .level-select {
   display: flex;
   justify-content: space-around;
@@ -187,14 +244,6 @@ $brown: #572311;
   position: absolute;
   top: 0;
   left: 0;
-}
-
-.game-over button {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .stats {
@@ -210,31 +259,8 @@ $brown: #572311;
     box-shadow: 1px 1px 1px $dark;
   }
 }
-// .App {
-//    max-width: 850px;
-//   margin: auto;
-// }
 
-// .App-logo {
-//   height: 40vmin;
-//   pointer-events: none;
-// }
 
-// @media (prefers-reduced-motion: no-preference) {
-//   .App-logo {
-//     animation: App-logo-spin infinite 20s linear;
-//   }
-// }
 
-// .App-link {
-//   color: #61dafb;
-// }
 
-// @keyframes App-logo-spin {
-//   from {
-//     transform: rotate(0deg);
-//   }
-//   to {
-//     transform: rotate(360deg);
-//   }
-// }
+
