@@ -6,6 +6,7 @@ const Slide = () => {
     const [ moves, setMoves ] = useState(0);
     const [ start, setStart ] = useState(false);
     const [ gameOver, setGameOver ] = useState(false);
+    const [ gameIsOver, setGameIsOver ] = useState(false);
     const [ timer, setTimer ] = useState(0);
     const [ imgUrl, setImage ] = useState(false);
     const [ grid, setGrid ] = useState(4);
@@ -62,7 +63,7 @@ const Slide = () => {
     }
     // stores time from timer at game over
     const getTime = (time) => {
-       setTimer(time - 5);
+       setTimer(time);
     }
 
     // toggle screens based on state
@@ -81,6 +82,7 @@ const Slide = () => {
                     boardHeight={gridHeight} 
                     start={start} 
                     handleGameOver={handleGameOver}
+                    gameIsOver={setGameIsOver}
                     moveCounter={moveCounter}
                     imgUrl={imgUrl}
                     tileLength={tileLength}
@@ -96,6 +98,7 @@ const Slide = () => {
                 moves={moves} 
                 start={start} 
                 getTime={getTime} 
+                gameIsOver={gameIsOver}
             />
         }
         </div>

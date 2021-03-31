@@ -136,7 +136,10 @@ class GameBoard extends Component {
                 movable = 'up';
             }
         }
-        if (movable) this.slideAudio.play();
+        if (movable) {
+            this.slideAudio.currentTime = 0;
+            this.slideAudio.play();
+        }
         // set new position according to move direction
         switch (movable) {
             case 'left': 
@@ -157,6 +160,7 @@ class GameBoard extends Component {
             break;
             default:
                 currentTile.shake = true;
+                this.nopeAudio.currentTime = 0;
                 this.nopeAudio.play();
         }   
 
@@ -181,12 +185,13 @@ class GameBoard extends Component {
 
         // if all pieces are in correct position, game is won
         if (!correctArray.includes(false)) {
-            this.setState({gameIsOver: true})
+            this.setState({gameIsOver: true});
             this.gameOver();
         }
     }
 
     gameOver = () => {
+        this.props.gameIsOver(true);
         setTimeout(() => this.props.handleGameOver(), 5000)
         ;
     }
